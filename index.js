@@ -15,9 +15,10 @@ function promptUser() {
       message: "What is your name?"
     },
     {
-      type: "input",
-      name: "location",
-      message: "Where are you from?"
+      type: "list",
+      name: "colors",
+      message: "Please choose a color?",
+      choices: ["Red", "Blue", "Green", "Pink"]
     },
     {
       type: "input",
@@ -32,7 +33,7 @@ function promptUser() {
   ]);
 }
 
-function generateHTML(answers, name, location) {
+function generateHTML(answers, name, following) {
   return `
   <!DOCTYPE html>
   <html lang="en">
@@ -239,8 +240,8 @@ async function init() {
 
     axios.get(`https://api.github.com/users/${answers.github}`).then(function (response) {
         let name = response.data.name;
-        let location  = respoinse.data.location;
-        let html = generateHTML(answers, name, location);
+        let following  = respoinse.data.following;
+        let html = generateHTML(answers, name, following);
 
         writeFileAsync("index.html", html);
         console.log(name);
